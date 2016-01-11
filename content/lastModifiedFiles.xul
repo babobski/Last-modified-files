@@ -6,6 +6,7 @@
     title="Last Modified Files"
     orient="horizontal"
 	minwidth="1200"
+	minheight="500"
 	onload="updateList()"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/javascript">

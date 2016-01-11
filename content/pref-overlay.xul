@@ -10,11 +10,16 @@
 	
 	<prefpane id="lastModifiedFiles-pane" label="Last Modified Files Preferences">
 		<preferences> 
-			<preference id="pref_exclude" name="extensions.lastModifiedFiles.exclude" type="string"/>
+			<preference id="pref_date_format" name="extensions.lastModifiedFiles.date_format" type="string"/>
 		</preferences>
 		
-		<label value="Directories to exclude (comma Separated)"/>
-		<textbox id="exclude" preference="pref_exclude" />
+		<label value="Date format"/>
+		<menulist id="date_format" preference="pref_date_format" label="Date format">
+			<menupopup>
+				<menuitem value="d/m/Y" label="d/m/Y"/>
+				<menuitem value="m/d/Y" label="m/d/Y"/>
+			</menupopup>
+		</menulist>
 		
 	</prefpane>
  

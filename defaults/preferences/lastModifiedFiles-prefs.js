@@ -1,1 +1,1 @@
-pref("extensions.lastModifiedFiles.exclude", "");
+pref("extensions.lastModifiedFiles.date_format", "d/m/Y");

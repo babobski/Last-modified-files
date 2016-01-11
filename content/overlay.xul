@@ -22,13 +22,4 @@
       </menu>
     </menupopup>
 	
-	<!--<ko-pane id="workspace_left_area"> 
-    <browser type="ko-widget" id="frelativeIncludesViewbox" label="Relative Includes"
-             position="10"
-             tab_oncommand=""
-             tab_onfocus=""
-			 icon="koicon://ko-svg/chrome/icomoon/skin/file-xml.svg" 
-	         src="chrome://relativeIncludes/content/panel.xul"/>
-  </ko-pane>--> 
-	
 </overlay>
