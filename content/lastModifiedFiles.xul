@@ -5,24 +5,26 @@
     id="lastmodifiedfiles-window"
     title="Last Modified Files"
     orient="horizontal"
-	minwidth="1200"
-	minheight="500"
+	minwidth="1100"
+	minheight="400"
 	onload="updateList()"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/javascript">
-		var self = window.arguments[0];
-		var doc = document;
+		var self = window.arguments[0],
+			doc = document;
 		
 		
 		updateList = function(){  
-			var modifiedFiles = self.getModifiedFiles(); 
-			var list = doc.getElementById('modifiedList');
-			var reverseList = {};
+			var modifiedFiles = self.getModifiedFiles(),
+				list = doc.getElementById('modifiedList');
 			
 			if (modifiedFiles) {
 				for (var p in modifiedFiles) {
 					var fileItem = doc.createElement('listitem');
-					fileItem.setAttribute('value', modifiedFiles[p].path);
+					fileItem.setAttribute('content',  modifiedFiles[p].fullPath);
+					fileItem.onclick = function(e){
+						self._getLink(e);
+					}
 					var firstCell = doc.createElement('listcell');
 					firstCell.setAttribute('label', modifiedFiles[p].file);
 					var secCell = doc.createElement('listcell');

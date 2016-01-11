@@ -15,7 +15,7 @@
 		
 		<label value="Date format"/>
 		<menulist id="date_format" preference="pref_date_format" label="Date format">
-			<menupopup>
+			<menupopup> 
 				<menuitem value="d/m/Y" label="d/m/Y"/>
 				<menuitem value="m/d/Y" label="m/d/Y"/>
 			</menupopup>
@@ -23,4 +23,4 @@
 		
 	</prefpane>
  
-</prefwindow> 
+</prefwindow>

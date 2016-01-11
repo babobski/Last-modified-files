@@ -12,7 +12,7 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 		.getService(Components.interfaces.nsIPrefService).getBranch("extensions.lastModifiedFiles."),
 		$ = require("ko/dom"); 
 		
-	if (!('lastModifiedFiles' in ko)) ko.extensions = {}; 
+	if (!('lastModifiedFiles' in ko)) ko.extensions = {};
 	var myExt = "lastModifiedFiles@babobski.com" ; 
 	if (!(myExt in ko.extensions)) ko.extensions[myExt] = {};
 	if (!('myapp' in ko.extensions[myExt])) ko.extensions[myExt].myapp = {};
@@ -22,36 +22,44 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 	
 	this._StoreModified = function(){ 
 		var d = ko.views.manager.currentView.document || ko.views.manager.currentView.koDoc,
-		file = d.file,
+		file = d.file, 
 		path = (file) ? file.URI : null,
-		lastModifiedFiles = lastModifiedFilesData.files;
-		var currentdate = new Date();
-		var minutes = currentdate.getMinutes().toString().length === 1 ? '0' + currentdate.getMinutes() : currentdate.getMinutes();
-		var hours = currentdate.getHours().toString().length === 1 ? '0' + currentdate.getHours() : currentdate.getHours();
-		var day = currentdate.getDate().toString().length === 1 ? '0' + currentdate.getDate() : currentdate.getDate();
-		var month = (currentdate.getMonth()+1).toString().length === 1 ? '0' + (currentdate.getMonth()+1) : (currentdate.getMonth()+1);
-		var dateFormat = prefs.getCharPref('date_format');
-		var date = dateFormat === "d/m/Y" ? day + "/" + month  + "/" + currentdate.getFullYear() : month + "/" + day  + "/" + currentdate.getFullYear();
-		var datetime = "Saved at: " + hours + ":" + minutes + " - " + date; 
+		lastModifiedFiles = lastModifiedFilesData.files; 
+		var currentdate = new Date(),
+			minutes = currentdate.getMinutes().toString().length === 1 ? '0' + currentdate.getMinutes() : currentdate.getMinutes(),
+			hours = currentdate.getHours().toString().length === 1 ? '0' + currentdate.getHours() : currentdate.getHours(),
+			day = currentdate.getDate().toString().length === 1 ? '0' + currentdate.getDate() : currentdate.getDate(),
+			month = (currentdate.getMonth()+1).toString().length === 1 ? '0' + (currentdate.getMonth()+1) : (currentdate.getMonth()+1),
+			dateFormat = prefs.getCharPref('date_format'),
+			date = dateFormat === "d/m/Y" ? day + "/" + month  + "/" + currentdate.getFullYear() : month + "/" + day  + "/" + currentdate.getFullYear(),
+			datetime = "Saved at: " + hours + ":" + minutes + " - " + date; 
 		
 		if (!file || !path) {
 			return;   
 		}
 		
-		var fileName = file.baseName;
+		var fileName = file.baseName; 
 		
 		if (lastModifiedFiles === undefined) {
 			lastModifiedFiles = {}; 
 		}
 		 
-		var maxPath = path.length > 110 ? path.substr(0, 110) + '...' : path; 
+		var maxPath = path.length > 110 ? path.substr(0, 110) + '...' : path;
 		
-		var currentProject = ko.projects.manager.currentProject;
-		var projectName = currentProject === null ? '' : currentProject.name.replace('.komodoproject', '');
+		var currentProject = ko.projects.manager.currentProject,
+			projectName = currentProject === null ? '' : currentProject.name.replace('.komodoproject', '');
 		
-		lastModifiedFiles[path] = ({date: datetime, file: fileName, project: projectName, path: maxPath});
+		lastModifiedFiles[path] = ({date: datetime, file: fileName, project: projectName, path: maxPath, fullPath: path});
 		
-		lastModifiedFilesData.files = lastModifiedFiles; 
+		lastModifiedFilesData.files = lastModifiedFiles;
+	}
+	
+	this._getLink = function(e){
+		var linkItem = e.target,
+			link = linkItem.getAttribute('content');
+		if (link.length > 0) {
+			ko.open.URI(link); 
+		}
 	}
 	
 	this._clearModifiedFilesList = function(){
@@ -64,7 +72,7 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 	}
 	
 	this.clearModifiedFiles = function(){
-		lastModifiedFilesData.files = {};
+		lastModifiedFilesData.files = {}; 
 	}
 	
 	this.getModifiedFiles = function(){
