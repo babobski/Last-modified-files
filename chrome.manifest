@@ -1,0 +1,5 @@
+content lastModifiedFiles content/
+overlay chrome://komodo/content/komodo.xul chrome://lastModifiedFiles/content/overlay.xul
+#overlay chrome://komodo/content/pref/pref-html.xul chrome://lastModifiedFiles/content/pref-overlay.xul
+overlay chrome://komodo/content/commandsOverlay.xul chrome://lastModifiedFiles/content/commandsOverlay.xul
+

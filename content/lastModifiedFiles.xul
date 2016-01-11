@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<window
+    id="lastmodifiedfiles-window"
+    title="Last Modified Files"
+    orient="horizontal"
+	minwidth="1200"
+	onload="updateList()"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/javascript">
+		var self = window.arguments[0];
+		var doc = document;
+		
+		
+		updateList = function(){  
+			var modifiedFiles = self.getModifiedFiles(); 
+			var list = doc.getElementById('modifiedList');
+			var reverseList = {};
+			
+			if (modifiedFiles) {
+				for (var p in modifiedFiles) {
+					var fileItem = doc.createElement('listitem');
+					fileItem.setAttribute('value', modifiedFiles[p].path);
+					var firstCell = doc.createElement('listcell');
+					firstCell.setAttribute('label', modifiedFiles[p].file);
+					var secCell = doc.createElement('listcell');
+					secCell.setAttribute('label', modifiedFiles[p].date);
+					var thirCell = doc.createElement('listcell');
+					thirCell.setAttribute('label', modifiedFiles[p].project);
+					var fourCell = doc.createElement('listcell');
+					fourCell.setAttribute('label', modifiedFiles[p].path);
+					fileItem.appendChild(firstCell);
+					fileItem.appendChild(secCell);
+					fileItem.appendChild(thirCell);
+					fileItem.appendChild(fourCell);
+					list.appendChild(fileItem); 
+				}
+			}
+		}
+		
+		refreshList = function(){
+			self.clearModifiedFiles();
+			window.close();
+		}
+		
+		
+	</script>
+	
+	<vbox flex="1">
+		<toolbox>
+			<toolbar id="modifiedfiles-toolbar">
+				<toolbarbutton id="clearList" onclick="refreshList()" label="Clear List" />
+			</toolbar>
+		</toolbox>
+	
+		<listbox id="modifiedList" flex="1">
+	
+			<listhead>
+				<listheader label="File" />
+				<listheader label="Changed" />
+				<listheader label="Project" />
+				<listheader label="Path" />
+			</listhead>
+	
+			<listcols>
+				<listcol flex="1" />
+				<listcol flex="1" />
+				<listcol flex="1" />
+				<listcol flex="1" />
+			</listcols>
+	
+		</listbox>
+	</vbox>
+
+</window>

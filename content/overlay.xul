@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<overlay id="lastModifiedFiles" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://lastModifiedFiles/content/overlay.js" />
+	
+	<commandset id="allcommands">
+	  <command id="Tasks:showLastModifiedFiles" oncommand="extensions.lastModifiedFiles.showModifiedFiles();"/>
+	  <command id="Tasks:clearLastModifiedFiles" oncommand="extensions.lastModifiedFiles.clearModifiedFiles();"/>
+    </commandset>
+
+    <menupopup id="popup_tools">
+      <menu id="menu_lastModifiedFiles" label="Last Modified Files">
+        <menupopup id="menu_lastModifiedFiles_popup">
+          <menuitem id="menu_lastModifiedFiles_file"
+                  label="Show Last Modified Files"
+                  observes="Tasks:showLastModifiedFiles"
+                  class="menu-iconic-wide" />
+		  <menuitem id="menu_lastModifiedFiles_file"
+				label="Clear Last Modified Files"
+				observes="Tasks:clearLastModifiedFiles"
+				class="menu-iconic-wide" />
+        </menupopup>
+      </menu>
+    </menupopup>
+	
+	<!--<ko-pane id="workspace_left_area"> 
+    <browser type="ko-widget" id="frelativeIncludesViewbox" label="Relative Includes"
+             position="10"
+             tab_oncommand=""
+             tab_onfocus=""
+			 icon="koicon://ko-svg/chrome/icomoon/skin/file-xml.svg" 
+	         src="chrome://relativeIncludes/content/panel.xul"/>
+  </ko-pane>--> 
+	
+</overlay>
