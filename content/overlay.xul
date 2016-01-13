@@ -9,7 +9,7 @@
 
     <menupopup id="popup_tools">
       <menu id="menu_lastModifiedFiles" label="Last Modified Files">
-        <menupopup id="menu_lastModifiedFiles_popup">
+        <menupopup id="menu_lastModifiedFiles_popup"> 
           <menuitem id="menu_lastModifiedFiles_file"
                   label="Show Last Modified Files"
                   observes="Tasks:showLastModifiedFiles"

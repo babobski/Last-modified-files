@@ -42,7 +42,12 @@
 			}
 		}
 		
-		refreshList = function(){
+		refreshWindow = function(){
+			self._refreshWindow();
+			window.close();
+		}
+		
+		clearList = function(){
 			self.clearModifiedFiles();
 			window.close();
 		}
@@ -53,7 +58,8 @@
 	<vbox flex="1">
 		<toolbox>
 			<toolbar id="modifiedfiles-toolbar">
-				<toolbarbutton id="clearList" onclick="refreshList()" label="Clear List" />
+				<toolbarbutton id="clearList" onclick="clearList()" label="Clear List" />
+				<toolbarbutton id="clearList" onclick="refreshWindow()" label="Refresh List" />
 			</toolbar>
 		</toolbox>
 	

@@ -35,7 +35,7 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 			datetime = "Saved at: " + hours + ":" + minutes + " - " + date; 
 		
 		if (!file || !path) {
-			return;   
+			return;  
 		}
 		
 		var fileName = file.baseName; 
@@ -44,10 +44,22 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 			lastModifiedFiles = {}; 
 		}
 		 
-		var maxPath = path.length > 110 ? path.substr(0, 110) + '...' : path;
+		var maxPath = path.length > 110 ? path.substr(0, 110) + '...' : path,
+			projectName = '';
+		var currentProject = ko.projects.manager.currentProject;
+		if (currentProject !== null) {
+			var projectPref = currentProject.prefset,
+			projectFileDir =
+			ko.interpolate.activeProjectPath().replace(/[\/\\][^\/\\]+$/, ''),
+			liveImportDir = projectPref.hasStringPref('import_dirname') ? projectPref.getStringPref('import_dirname') : '',
+			projectDir = liveImportDir ? (liveImportDir.match(/(\/\/|[a-zA-Z])/) ? liveImportDir : (projectFileDir + '/' + liveImportDir)) : projectFileDir;
+			
+			if (ko.uriparse.displayPath(path).indexOf(ko.uriparse.displayPath(projectDir)) !== -1) {  
+				projectName = currentProject === null ? '' : currentProject.name.replace('.komodoproject', '');
+			}
+		}
 		
-		var currentProject = ko.projects.manager.currentProject,
-			projectName = currentProject === null ? '' : currentProject.name.replace('.komodoproject', '');
+			
 		
 		lastModifiedFiles[path] = ({date: datetime, file: fileName, project: projectName, path: maxPath, fullPath: path});
 		
@@ -58,8 +70,14 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 		var linkItem = e.target,
 			link = linkItem.getAttribute('content');
 		if (link.length > 0) {
-			ko.open.URI(link); 
+			ko.open.URI(link);
 		}
+	}
+	
+	this._refreshWindow = function(){
+		setTimeout(function(){
+			self.showModifiedFiles();
+		}, 500); 
 	}
 	
 	this._clearModifiedFilesList = function(){
