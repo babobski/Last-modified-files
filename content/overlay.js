@@ -74,14 +74,10 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 		}
 	}
 	
-	this._refreshWindow = function(){
-		setTimeout(function(){
+	this._refreshWindow = function(){ 
+		setTimeout(function(){ 
 			self.showModifiedFiles();
 		}, 500); 
-	}
-	
-	this._clearModifiedFilesList = function(){
-		lastModifiedFilesData.files = false;
 	}
 	
 	this.showModifiedFiles = function(){ 
@@ -90,7 +86,10 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 	}
 	
 	this.clearModifiedFiles = function(){
-		lastModifiedFilesData.files = {}; 
+		lastModifiedFilesData.files = {};
+		setTimeout(function(){
+			self.showModifiedFiles();
+		}, 500); 
 	}
 	
 	this.getModifiedFiles = function(){
