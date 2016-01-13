@@ -12,12 +12,11 @@
 	<script type="application/javascript">
 		var self = window.arguments[0],
 			doc = document;
-		
-		
-		updateList = function(){  
+
+		updateList = function(){
 			var modifiedFiles = self.getModifiedFiles(),
 				list = doc.getElementById('modifiedList');
-			
+
 			if (modifiedFiles) {
 				for (var p in modifiedFiles) {
 					var fileItem = doc.createElement('listitem');
@@ -37,48 +36,63 @@
 					fileItem.appendChild(secCell);
 					fileItem.appendChild(thirCell);
 					fileItem.appendChild(fourCell);
-					list.appendChild(fileItem); 
+					list.appendChild(fileItem);
 				}
 			}
 		}
-		
+
 		refreshWindow = function(){
-			self._refreshWindow();
-			window.close();
+			var list = doc.getElementById('modifiedList');
+			var count = list.itemCount;
+			while(count-- > 0){
+				list.removeItemAt(0);
+			}
+
+			updateList();
 		}
-		
+
 		clearList = function(){
+			var list = doc.getElementById('modifiedList');
+			var count = list.itemCount;
+			while(count-- > 0){
+				list.removeItemAt(0);
+			}
+
 			self.clearModifiedFiles();
-			window.close();
+			updateList();
 		}
-		
-		
+
+
+		window.setInterval(function(){
+			refreshWindow()
+		}, 3000);
+
+
 	</script>
-	
+
 	<vbox flex="1">
 		<toolbox>
 			<toolbar id="modifiedfiles-toolbar">
-				<toolbarbutton id="clearList" onclick="clearList()" label="Clear List" />
-				<toolbarbutton id="clearList" onclick="refreshWindow()" label="Refresh List" />
+				<toolbarbutton id="clearList" accesskey="c" onclick="clearList()" label="Clear List" />
 			</toolbar>
 		</toolbox>
-	
+
 		<listbox id="modifiedList" flex="1">
-	
+
 			<listhead>
 				<listheader label="File" />
 				<listheader label="Changed" />
 				<listheader label="Project" />
 				<listheader label="Path" />
 			</listhead>
-	
+
 			<listcols>
 				<listcol flex="1" />
 				<listcol flex="1" />
 				<listcol flex="1" />
 				<listcol flex="1" />
 			</listcols>
-	
+
 		</listbox>
 	</vbox>
 

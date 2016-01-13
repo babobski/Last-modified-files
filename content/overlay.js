@@ -1,6 +1,3 @@
-/**
- * Namespaces
- */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifiedFiles = {
 	version: '1.0'
@@ -10,7 +7,7 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 	var self = this,
 		prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService).getBranch("extensions.lastModifiedFiles."),
-		$ = require("ko/dom"); 
+		$ = require("ko/dom");  
 		
 	if (!('lastModifiedFiles' in ko)) ko.extensions = {};
 	var myExt = "lastModifiedFiles@babobski.com" ; 
@@ -44,12 +41,12 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 			lastModifiedFiles = {}; 
 		}
 		 
-		var maxPath = path.length > 110 ? path.substr(0, 110) + '...' : path,
+		var maxPath = path.length > 100 ? path.substr(0, 100) + '...' : path,
 			projectName = '';
 		var currentProject = ko.projects.manager.currentProject;
 		if (currentProject !== null) {
 			var projectPref = currentProject.prefset,
-			projectFileDir =
+			projectFileDir = 
 			ko.interpolate.activeProjectPath().replace(/[\/\\][^\/\\]+$/, ''),
 			liveImportDir = projectPref.hasStringPref('import_dirname') ? projectPref.getStringPref('import_dirname') : '',
 			projectDir = liveImportDir ? (liveImportDir.match(/(\/\/|[a-zA-Z])/) ? liveImportDir : (projectFileDir + '/' + liveImportDir)) : projectFileDir;
@@ -70,26 +67,22 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 		var linkItem = e.target,
 			link = linkItem.getAttribute('content');
 		if (link.length > 0) {
-			ko.open.URI(link);
+			ko.open.URI(link); 
 		}
 	}
 	
-	this._refreshWindow = function(){ 
-		setTimeout(function(){ 
-			self.showModifiedFiles();
-		}, 500); 
+	this.openSettings = function(){
+		var features = "chrome,titlebar,toolbar,centerscreen"; 
+		window.openDialog('chrome://lastModifiedFiles/content/pref-overlay.xul', "modifiedFiles", features);
 	}
 	
-	this.showModifiedFiles = function(){ 
+	this.showModifiedFiles = function(){
 		var features = "chrome,titlebar,toolbar,centerscreen"; 
 		window.openDialog('chrome://lastModifiedFiles/content/lastModifiedFiles.xul', "modifiedFiles", features, self);
 	}
 	
 	this.clearModifiedFiles = function(){
 		lastModifiedFilesData.files = {};
-		setTimeout(function(){
-			self.showModifiedFiles();
-		}, 500); 
 	}
 	
 	this.getModifiedFiles = function(){

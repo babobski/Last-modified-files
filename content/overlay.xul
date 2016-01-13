@@ -5,18 +5,26 @@
 	<commandset id="allcommands">
 	  <command id="Tasks:showLastModifiedFiles" oncommand="extensions.lastModifiedFiles.showModifiedFiles();"/>
 	  <command id="Tasks:clearLastModifiedFiles" oncommand="extensions.lastModifiedFiles.clearModifiedFiles();"/>
+	  <command id="Tasks:openSettings" oncommand="extensions.lastModifiedFiles.openSettings();"/>
     </commandset>
 
     <menupopup id="popup_tools">
-      <menu id="menu_lastModifiedFiles" label="Last Modified Files">
+      <menu id="menu_lastModifiedFiles" accesskey="l" label="Last Modified Files">
         <menupopup id="menu_lastModifiedFiles_popup"> 
-          <menuitem id="menu_lastModifiedFiles_file"
-                  label="Show Last Modified Files"
+          <menuitem id="menu_showlastModifiedFiles_file"
+                  label="Last Modified Files"
+				  accesskey="l"
                   observes="Tasks:showLastModifiedFiles"
                   class="menu-iconic-wide" />
-		  <menuitem id="menu_lastModifiedFiles_file"
+		  <menuitem id="menu_clearlastModifiedFiles_file"
 				label="Clear Last Modified Files"
+				accesskey="c"
 				observes="Tasks:clearLastModifiedFiles"
+				class="menu-iconic-wide" />
+		  <menuitem id="menu_settingslastModifiedFiles_file"
+				label="Settings"
+				accesskey="s"
+				observes="Tasks:openSettings"
 				class="menu-iconic-wide" />
         </menupopup>
       </menu>
