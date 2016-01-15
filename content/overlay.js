@@ -5,6 +5,7 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 
 (function() {
 	var self = this,
+		notify	= require("notify/notify"),
 		prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService).getBranch("extensions.lastModifiedFiles."),
 		$ = require("ko/dom");  
@@ -32,7 +33,7 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 			datetime = "Saved at: " + hours + ":" + minutes + " - " + date; 
 		
 		if (!file || !path) {
-			return;  
+			return; 
 		}
 		
 		var fileName = file.baseName; 
@@ -64,10 +65,17 @@ if (typeof(extensions.lastModifiedFiles) === 'undefined') extensions.lastModifie
 	}
 	
 	this._getLink = function(e){
-		var linkItem = e.target,
+		try {
+			var linkItem = e.target,
 			link = linkItem.getAttribute('content');
-		if (link.length > 0) {
-			ko.open.URI(link); 
+			if (link.length > 0) {
+				ko.open.URI(link); 
+			}
+		} catch(error){
+			notify.send(
+				'ERROR: ' + error,
+				'tools'
+			);
 		}
 	}
 	
